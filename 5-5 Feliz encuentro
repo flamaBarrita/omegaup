@@ -1,0 +1,31 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    int longi,n;
+    string cadena;
+    cin>>longi >> n >> cadena;
+    vector<int> repeticiones(longi,0);
+    for (int i = 0; i < longi; i++) {
+        if (cadena[i] == cadena[i + 1])repeticiones[i]++;
+    }
+    vector<int> acumulativo(longi, 0);
+    acumulativo[0] = repeticiones[0];
+    for (int i = 1; i < longi; i++) {
+        acumulativo[i] = acumulativo[i - 1] + repeticiones[i];
+    }
+  
+    for (int k = 0; k < n; k++){
+      int repeticionesRango=0;
+        int inicio, fin;
+        cin >> inicio >> fin;
+         if (inicio > 1) {
+            repeticionesRango = acumulativo[fin - 2] - acumulativo[inicio - 2];
+        } else {
+            repeticionesRango = acumulativo[fin - 2];
+        }
+        cout << repeticionesRango << endl;
+    } 
+    return 0;
+}
